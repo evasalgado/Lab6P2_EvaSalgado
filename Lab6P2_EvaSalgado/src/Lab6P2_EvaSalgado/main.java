@@ -4,6 +4,9 @@
  */
 package Lab6P2_EvaSalgado;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author evaja
@@ -15,9 +18,10 @@ public class main extends javax.swing.JFrame {
      */
     public main() {
         initComponents();
-        setTitle("Super Juegos");
-        setSize(994, 568);
+        setTitle("Super Juegos Management and More");
+        setSize(993, 605);
         add_consola.setVisible(false);
+        add_juego.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,11 +30,10 @@ public class main extends javax.swing.JFrame {
 
         jp_acciones = new javax.swing.JPopupMenu();
         jt_agregar = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jt_modificar = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jt_eliminar = new javax.swing.JMenuItem();
         jp_listar = new javax.swing.JPopupMenu();
+        jl_añadiraconsola = new javax.swing.JMenuItem();
         general = new javax.swing.JPanel();
         tabla_consolas = new javax.swing.JScrollPane();
         consolas = new javax.swing.JTable();
@@ -38,6 +41,8 @@ public class main extends javax.swing.JFrame {
         juegos = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        add_game = new javax.swing.JButton();
+        add_console = new javax.swing.JButton();
         add_consola = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -72,6 +77,19 @@ public class main extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        g_cant = new javax.swing.JTextField();
+        g_name = new javax.swing.JTextField();
+        g_desc = new javax.swing.JTextField();
+        g_price = new javax.swing.JTextField();
+        g_agregado = new javax.swing.JComboBox<>();
+        g_estado = new javax.swing.JComboBox<>();
+        g_rentable = new javax.swing.JComboBox<>();
+        g_add = new javax.swing.JButton();
+        g_date = new com.toedter.calendar.JDateChooser();
 
         jp_acciones.setBackground(new java.awt.Color(255, 102, 102));
         jp_acciones.setAlignmentX(53.0F);
@@ -89,14 +107,15 @@ public class main extends javax.swing.JFrame {
             }
         });
         jp_acciones.add(jt_agregar);
-        jp_acciones.add(jSeparator1);
 
         jt_modificar.setText("jMenuItem2");
         jp_acciones.add(jt_modificar);
-        jp_acciones.add(jSeparator2);
 
         jt_eliminar.setText("jMenuItem3");
         jp_acciones.add(jt_eliminar);
+
+        jl_añadiraconsola.setText("jMenuItem1");
+        jp_listar.add(jl_añadiraconsola);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,9 +157,14 @@ public class main extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        juegos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                juegosMouseClicked(evt);
+            }
+        });
         listar_juegos.setViewportView(juegos);
 
-        general.add(listar_juegos, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, 210, 310));
+        general.add(listar_juegos, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, 190, 310));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 204));
@@ -153,6 +177,17 @@ public class main extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("LISTA DE JUEGOS");
         general.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 46, 210, 50));
+
+        add_game.setText("Añadir Juego");
+        add_game.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_gameMouseClicked(evt);
+            }
+        });
+        general.add(add_game, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 500, 210, 50));
+
+        add_console.setText("Añadir Consola");
+        general.add(add_console, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, 210, 50));
 
         add_consola.setBackground(new java.awt.Color(255, 204, 204));
         add_consola.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -274,8 +309,8 @@ public class main extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 204));
-        jLabel17.setText("Precio");
-        add_juego.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 40));
+        jLabel17.setText("Cantidad disponibles");
+        add_juego.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 190, 40));
 
         jLabel18.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 204));
@@ -290,37 +325,85 @@ public class main extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 204));
         jLabel20.setText("Fecha de Lanzamiento");
-        add_juego.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 220, 40));
+        add_juego.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 190, 40));
+
+        jLabel21.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 204));
+        jLabel21.setText("Precio");
+        add_juego.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, 40));
+
+        jLabel22.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 204));
+        jLabel22.setText("Estado");
+        add_juego.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 80, 40));
+
+        jLabel23.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 204));
+        jLabel23.setText("Rentable?");
+        add_juego.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 120, 40));
+
+        jLabel24.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 204));
+        jLabel24.setText("Agregado: ");
+        add_juego.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 120, 40));
+
+        g_cant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                g_cantActionPerformed(evt);
+            }
+        });
+        add_juego.add(g_cant, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 50, 40));
+        add_juego.add(g_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 150, 50));
+        add_juego.add(g_desc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 260, 130));
+        add_juego.add(g_price, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 50, 40));
+
+        g_agregado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no", " " }));
+        add_juego.add(g_agregado, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, -1, -1));
+
+        g_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usable", "No usable", " " }));
+        add_juego.add(g_estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, -1, -1));
+
+        g_rentable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "si", "no", " " }));
+        add_juego.add(g_rentable, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
+
+        g_add.setText("Añadir");
+        g_add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                g_addMouseClicked(evt);
+            }
+        });
+        add_juego.add(g_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 230, 70));
+        add_juego.add(g_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(general, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
+            .addComponent(general, javax.swing.GroupLayout.DEFAULT_SIZE, 993, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(add_consola, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add_consola, javax.swing.GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 196, Short.MAX_VALUE)
                     .addComponent(add_juego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 197, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(general, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+            .addComponent(general, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(add_consola, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add_consola, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 62, Short.MAX_VALUE)
                     .addComponent(add_juego, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 63, Short.MAX_VALUE)))
         );
 
         pack();
@@ -342,6 +425,52 @@ public class main extends javax.swing.JFrame {
     private void jt_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_agregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jt_agregarActionPerformed
+
+    private void g_cantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_g_cantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_g_cantActionPerformed
+
+    private void add_gameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_gameMouseClicked
+       add_juego.setVisible(true);
+       general.setVisible(false);
+        setSize(700, 520);
+    }//GEN-LAST:event_add_gameMouseClicked
+
+    private void g_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_g_addMouseClicked
+        boolean estado = true, rent = true, agregado = true;
+        
+        if (g_estado.equals(evt.equals("Usable"))) {
+            estado=true;
+        } else {
+            estado=false;
+        }
+        if (g_rentable.equals(evt.equals("si"))) {
+            rent=true;
+        } else {
+            rent = false;
+        } 
+        if (g_agregado.equals(evt.equals("si"))) {
+            agregado=true;
+        } else {
+            agregado=false;
+        }
+        double precio = Double.parseDouble(g_price.getText());
+        juego game = new juego(g_name.getText(), g_desc.getText(),g_date.getDate(),precio,estado, rent, agregado, Integer.parseInt(g_cant.getText()));
+        c.juegos.add(game);
+        JOptionPane.showMessageDialog(this, "Datos ingresados correctamente");
+        add_juego.setVisible(false);
+        general.setVisible(true);
+    }//GEN-LAST:event_g_addMouseClicked
+
+    private void juegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_juegosMouseClicked
+        if (juegos.getSelectedIndex() >= 0) {
+            if (evt.isMetaDown()) {
+                jp_listar.show(evt.getComponent(),
+                        evt.getX(), evt.getY());
+
+            }
+        }
+    }//GEN-LAST:event_juegosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -377,9 +506,12 @@ public class main extends javax.swing.JFrame {
             }
         });
     }
-
+    consola c = new consola();
+    ArrayList consolegame = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add_consola;
+    private javax.swing.JButton add_console;
+    private javax.swing.JButton add_game;
     private javax.swing.JPanel add_juego;
     private javax.swing.JTable consolas;
     private javax.swing.JTextField cs_añouso;
@@ -389,6 +521,15 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPanel cs_portatil;
     private javax.swing.JTextField cs_precio;
     private javax.swing.JComboBox<String> cs_tipo;
+    private javax.swing.JButton g_add;
+    private javax.swing.JComboBox<String> g_agregado;
+    private javax.swing.JTextField g_cant;
+    private com.toedter.calendar.JDateChooser g_date;
+    private javax.swing.JTextField g_desc;
+    private javax.swing.JComboBox<String> g_estado;
+    private javax.swing.JTextField g_name;
+    private javax.swing.JTextField g_price;
+    private javax.swing.JComboBox<String> g_rentable;
     private javax.swing.JPanel general;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -405,6 +546,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -412,9 +557,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem jl_añadiraconsola;
     private javax.swing.JPopupMenu jp_acciones;
     private javax.swing.JPopupMenu jp_listar;
     private javax.swing.JMenuItem jt_agregar;
