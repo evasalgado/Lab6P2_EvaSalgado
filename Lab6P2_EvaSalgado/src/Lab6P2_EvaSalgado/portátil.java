@@ -18,13 +18,14 @@ public class portátil extends consola {
         super();
     }
 
-    public portátil(String tamaño, int bateria, boolean estuche, int ID, String fabricante, int añouso, double precio, int juegos, String modelo) {
-        super(ID, fabricante, añouso, precio, juegos, modelo);
+    public portátil(String tamaño, int bateria, boolean estuche, int ID, String fabricante, int añouso, double precio, String modelo) {
+        super(ID, fabricante, añouso, precio, modelo);
         this.tamaño = tamaño;
         this.bateria = bateria;
         this.estuche = estuche;
     }
 
+  
     public String getTamaño() {
         return tamaño;
     }

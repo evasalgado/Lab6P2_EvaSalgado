@@ -16,12 +16,13 @@ public class estacionaria extends consola{
     public estacionaria() {
     }
 
-    public estacionaria(int controles, int almacenamiento, String conexion, int ID, String fabricante, int añouso, double precio, int juegos, String modelo) {
-        super(ID, fabricante, añouso, precio, juegos, modelo);
+    public estacionaria(int controles, int almacenamiento, String conexion, int ID, String fabricante, int añouso, double precio, String modelo) {
+        super(ID, fabricante, añouso, precio, modelo);
         this.controles = controles;
         this.almacenamiento = almacenamiento;
         this.conexion = conexion;
     }
+
 
     public int getControles() {
         return controles;

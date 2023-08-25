@@ -16,18 +16,17 @@ public class consola {
     protected String fabricante;
     protected int añouso;
     protected double precio;
-    protected int juegos;
+    ArrayList<juego> juegos = new ArrayList<juego>();
     protected String modelo;
 
     public consola() {
     }
 
-    public consola(int ID, String fabricante, int añouso, double precio, int juegos, String modelo) {
+    public consola(int ID, String fabricante, int añouso, double precio, String modelo) {
         this.ID = ID;
         this.fabricante = fabricante;
         this.añouso = añouso;
         this.precio = precio;
-        this.juegos = juegos;
         this.modelo = modelo;
     }
 
@@ -63,11 +62,11 @@ public class consola {
         this.precio = precio;
     }
 
-    public int getJuegos() {
+    public ArrayList<juego> getJuegos() {
         return juegos;
     }
 
-    public void setJuegos(int juegos) {
+    public void setJuegos(ArrayList<juego> juegos) {
         this.juegos = juegos;
     }
 
@@ -83,5 +82,6 @@ public class consola {
     public String toString() {
         return "consola{" + "ID=" + ID + ", fabricante=" + fabricante + ", a\u00f1ouso=" + añouso + ", precio=" + precio + ", juegos=" + juegos + ", modelo=" + modelo + '}';
     }
+    
     
 }
