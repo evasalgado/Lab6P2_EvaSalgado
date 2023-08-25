@@ -5,6 +5,7 @@
 package Lab6P2_EvaSalgado;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,11 +35,12 @@ public class main extends javax.swing.JFrame {
         jt_eliminar = new javax.swing.JMenuItem();
         jp_listar = new javax.swing.JPopupMenu();
         jl_añadiraconsola = new javax.swing.JMenuItem();
+        jl_eliminar = new javax.swing.JMenuItem();
         general = new javax.swing.JPanel();
         tabla_consolas = new javax.swing.JScrollPane();
         consolas = new javax.swing.JTable();
-        listar_juegos = new javax.swing.JScrollPane();
-        juegos = new javax.swing.JList<>();
+        lista = new javax.swing.JScrollPane();
+        listar_juegos = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         add_game = new javax.swing.JButton();
@@ -114,8 +116,11 @@ public class main extends javax.swing.JFrame {
         jt_eliminar.setText("jMenuItem3");
         jp_acciones.add(jt_eliminar);
 
-        jl_añadiraconsola.setText("jMenuItem1");
+        jl_añadiraconsola.setText("añadir a consola");
         jp_listar.add(jl_añadiraconsola);
+
+        jl_eliminar.setText("eliminar");
+        jp_listar.add(jl_eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,21 +155,21 @@ public class main extends javax.swing.JFrame {
 
         general.add(tabla_consolas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 650, 450));
 
-        juegos.setBackground(new java.awt.Color(255, 204, 204));
-        juegos.setForeground(new java.awt.Color(204, 0, 102));
-        juegos.setModel(new javax.swing.AbstractListModel<String>() {
+        listar_juegos.setBackground(new java.awt.Color(255, 204, 204));
+        listar_juegos.setForeground(new java.awt.Color(204, 0, 102));
+        listar_juegos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        juegos.addMouseListener(new java.awt.event.MouseAdapter() {
+        listar_juegos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                juegosMouseClicked(evt);
+                listar_juegosMouseClicked(evt);
             }
         });
-        listar_juegos.setViewportView(juegos);
+        lista.setViewportView(listar_juegos);
 
-        general.add(listar_juegos, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, 190, 310));
+        general.add(lista, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 100, 190, 310));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 204));
@@ -438,7 +443,7 @@ public class main extends javax.swing.JFrame {
 
     private void g_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_g_addMouseClicked
         boolean estado = true, rent = true, agregado = true;
-        
+        DefaultListModel modelo = (DefaultListModel)listar_juegos.getModel();
         if (g_estado.equals(evt.equals("Usable"))) {
             estado=true;
         } else {
@@ -456,21 +461,24 @@ public class main extends javax.swing.JFrame {
         }
         double precio = Double.parseDouble(g_price.getText());
         juego game = new juego(g_name.getText(), g_desc.getText(),g_date.getDate(),precio,estado, rent, agregado, Integer.parseInt(g_cant.getText()));
-        c.juegos.add(game);
+        
+        modelo.addElement(c.juegos.add(game));
+        listar_juegos.setModel(modelo);
+        
         JOptionPane.showMessageDialog(this, "Datos ingresados correctamente");
         add_juego.setVisible(false);
         general.setVisible(true);
     }//GEN-LAST:event_g_addMouseClicked
 
-    private void juegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_juegosMouseClicked
-        if (juegos.getSelectedIndex() >= 0) {
+    private void listar_juegosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listar_juegosMouseClicked
+        if (listar_juegos.getSelectedIndex() >= 0) {
             if (evt.isMetaDown()) {
                 jp_listar.show(evt.getComponent(),
                         evt.getX(), evt.getY());
 
             }
         }
-    }//GEN-LAST:event_juegosMouseClicked
+    }//GEN-LAST:event_listar_juegosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -559,13 +567,14 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem jl_añadiraconsola;
+    private javax.swing.JMenuItem jl_eliminar;
     private javax.swing.JPopupMenu jp_acciones;
     private javax.swing.JPopupMenu jp_listar;
     private javax.swing.JMenuItem jt_agregar;
     private javax.swing.JMenuItem jt_eliminar;
     private javax.swing.JMenuItem jt_modificar;
-    private javax.swing.JList<String> juegos;
-    private javax.swing.JScrollPane listar_juegos;
+    private javax.swing.JScrollPane lista;
+    private javax.swing.JList<String> listar_juegos;
     private javax.swing.JTextField pt_almacenamiento;
     private javax.swing.JTextField pt_conexion;
     private javax.swing.JTextField pt_controles;
