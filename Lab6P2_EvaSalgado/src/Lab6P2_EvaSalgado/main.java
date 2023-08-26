@@ -244,6 +244,7 @@ public class main extends javax.swing.JFrame {
         add_consola.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 212, 49));
 
         cs_id.setText("\n");
+        cs_id.setToolTipText("#########\n");
         add_consola.add(cs_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 220, 30));
 
         cs_fabricante.setText("\n");
@@ -253,9 +254,15 @@ public class main extends javax.swing.JFrame {
         add_consola.add(cs_añouso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 220, 30));
 
         cs_precio.setText("\n");
+        cs_precio.setToolTipText("###.##\n");
         add_consola.add(cs_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 60, 30));
 
         cs_tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Portatil", "Estacionaria", " " }));
+        cs_tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cs_tipoActionPerformed(evt);
+            }
+        });
         add_consola.add(cs_tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
 
         cs_portatil.setBackground(new java.awt.Color(153, 102, 255));
@@ -283,6 +290,8 @@ public class main extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequeño ", "Mediano", "Grande", " " }));
         cs_portatil.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        jTextField1.setToolTipText("####");
         cs_portatil.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         pt_estuche.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si ", "No", " " }));
@@ -484,21 +493,33 @@ public class main extends javax.swing.JFrame {
        String m = "";
         if (cs_tipo.getSelectedItem().equals("Portatil")) {
             m="Portatil";
-            cs_portatil.setVisible(true);
         } else {
             m="Estacionaria";
-            cs_estacionaria.setVisible(true);
         }
-       c = new consola(Integer.parseInt(cs_id.getText()),cs_fabricante.getText(),
-               Integer.parseInt(cs_añouso.getText())
-               , Double.parseDouble(cs_precio.getText()),m );
+       double p =  Double.parseDouble(cs_precio.getText());
+       int id = Integer.parseInt(cs_id.getText());
+       int a = Integer.parseInt(cs_añouso.getText());
+       c = new consola(id,cs_fabricante.getText(),
+               a,p,m );
        consolegame.add(c);
        modelo.addColumn(consolegame);
-       JOptionPane.showMessageDialog(this, "Datos ingresados correctamente");
+        try {
+            JOptionPane.showMessageDialog(this, "Datos ingresados correctamente");
+       general.setVisible(true);
+       cs_portatil.setVisible(false);
+       cs_estacionaria.setVisible(false);
+       add_juego.setVisible(false);
+       add_consola.setVisible(true);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "error detectado");
+        }
+       
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void add_consoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_consoleMouseClicked
-       add_consola.setVisible(true);tabla_consolas.setVisible(false);
+       add_consola.setVisible(true);
+       tabla_consolas.setVisible(false);
        lista.setVisible(false);
        add_game.setVisible(false);
        add_console.setVisible(false);
@@ -509,6 +530,18 @@ public class main extends javax.swing.JFrame {
        cs_estacionaria.setVisible(false);
         
     }//GEN-LAST:event_add_consoleMouseClicked
+
+    private void cs_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cs_tipoActionPerformed
+
+        if (cs_tipo.getSelectedItem().equals("Portatil")) {
+
+            cs_portatil.setVisible(true);
+        } else {
+
+            cs_estacionaria.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_cs_tipoActionPerformed
 
     /**
      * @param args the command line arguments
