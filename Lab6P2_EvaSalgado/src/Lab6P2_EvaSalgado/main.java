@@ -197,6 +197,11 @@ public class main extends javax.swing.JFrame {
         general.add(add_game, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 500, 210, 50));
 
         add_console.setText("Añadir Consola");
+        add_console.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_consoleMouseClicked(evt);
+            }
+        });
         general.add(add_console, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 440, 210, 50));
 
         add_consola.setBackground(new java.awt.Color(255, 204, 204));
@@ -476,15 +481,34 @@ public class main extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
        DefaultTableModel modelo = (DefaultTableModel) consolas.getModel();
-        if (rootPaneCheckingEnabled) {
-            
+       String m = "";
+        if (cs_tipo.getSelectedItem().equals("Portatil")) {
+            m="Portatil";
+            cs_portatil.setVisible(true);
         } else {
+            m="Estacionaria";
+            cs_estacionaria.setVisible(true);
         }
        c = new consola(Integer.parseInt(cs_id.getText()),cs_fabricante.getText(),
                Integer.parseInt(cs_añouso.getText())
-               , Double.parseDouble(cs_precio.getText()), );
+               , Double.parseDouble(cs_precio.getText()),m );
+       consolegame.add(c);
        modelo.addColumn(consolegame);
+       JOptionPane.showMessageDialog(this, "Datos ingresados correctamente");
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void add_consoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_consoleMouseClicked
+       add_consola.setVisible(true);tabla_consolas.setVisible(false);
+       lista.setVisible(false);
+       add_game.setVisible(false);
+       add_console.setVisible(false);
+       jLabel1.setVisible(false);
+       jLabel8.setVisible(false);
+       add_juego.setVisible(false);
+       cs_portatil.setVisible(false);
+       cs_estacionaria.setVisible(false);
+        
+    }//GEN-LAST:event_add_consoleMouseClicked
 
     /**
      * @param args the command line arguments
