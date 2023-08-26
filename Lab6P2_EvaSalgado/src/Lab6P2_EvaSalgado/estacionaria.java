@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Lab6P2_EvaSalgado;
-
+import javax.swing.DefaultListModel;
 /**
  *
  * @author evaja

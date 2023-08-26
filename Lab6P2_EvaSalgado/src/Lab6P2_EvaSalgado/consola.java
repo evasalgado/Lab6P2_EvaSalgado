@@ -5,11 +5,13 @@
 package Lab6P2_EvaSalgado;
 
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author evaja
  */
+
 public class consola {
 
     protected int ID;
