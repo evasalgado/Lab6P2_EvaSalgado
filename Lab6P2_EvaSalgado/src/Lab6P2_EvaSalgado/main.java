@@ -476,7 +476,13 @@ public class main extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
        DefaultTableModel modelo = (DefaultTableModel) consolas.getModel();
-       c = new consola(Integer.parseInt(cs_id),fabricante, ABORT, ERROR, modelo);
+        if (rootPaneCheckingEnabled) {
+            
+        } else {
+        }
+       c = new consola(Integer.parseInt(cs_id.getText()),cs_fabricante.getText(),
+               Integer.parseInt(cs_añouso.getText())
+               , Double.parseDouble(cs_precio.getText()), );
        modelo.addColumn(consolegame);
     }//GEN-LAST:event_jButton1MouseClicked
 
